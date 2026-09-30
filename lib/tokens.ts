@@ -2,11 +2,11 @@
  * Utility to extract clean barcode token from raw QR code text, URL, or manual input.
  *
  * Supported formats:
- * - Full URL: "http://localhost:3000/p/CB7D4278" -> "CB7D4278"
- * - Secure URL: "https://mrs-mai.com/p/CB7D4278?src=qr" -> "CB7D4278"
- * - Relative URL: "/p/CB7D4278" -> "CB7D4278"
- * - Plain token: "CB7D4278" or "cb7d4278" -> "CB7D4278"
- * - Legacy student ID: "#142" or "142" -> "142"
+ * - Full URL: "http://localhost:3000/p/EDC10101" -> "EDC10101"
+ * - Secure URL: "https://demo.qaleb.site/p/EDC10101?src=qr" -> "EDC10101"
+ * - Relative URL: "/p/EDC10101" -> "EDC10101"
+ * - Plain token: "EDC10101" or "edc10101" -> "EDC10101"
+ * - Legacy student ID: "#101" or "101" -> "101"
  */
 export function extractBarcodeToken(input: string): string {
   if (!input || typeof input !== 'string') return '';

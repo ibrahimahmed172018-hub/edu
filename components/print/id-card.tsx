@@ -33,8 +33,8 @@ export function StudentIdCard({ student, className }: StudentIdCardProps) {
             <Sparkles className="h-4 w-4" />
           </div>
           <div>
-            <h3 className="text-xs font-black tracking-wider text-black">مس مي</h3>
-            <p className="text-[10px] text-slate-600 print:text-black font-medium">كارت حضور ومتابعة الطالب</p>
+            <h3 className="text-xs font-black tracking-wider text-black">EduCore</h3>
+            <p className="text-[10px] text-slate-600 print:text-black font-medium">أ/ محمد إبراهيم — كارت الحضور والمتابعة</p>
           </div>
         </div>
         {student.grade && (

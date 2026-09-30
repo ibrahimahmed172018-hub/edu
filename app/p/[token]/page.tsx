@@ -225,7 +225,7 @@ export default function ParentPortalPage({ params }: { params: { token: string }
             </span>
             <h1 className="text-2xl font-black text-white">كارت غير مفعّل بعد</h1>
             <p className="text-xs text-slate-400 leading-relaxed">
-              هذا الكارت أصلي وصادر من <span className="text-white font-bold">مس مي</span>، ولكنه لم يتم ربطه بملف أي طالب حتى الآن.
+              هذا الكارت أصلي وصادر من <span className="text-white font-bold">منظومة EduCore</span>، ولكنه لم يتم ربطه بملف أي طالب حتى الآن.
             </p>
           </div>
 
@@ -257,8 +257,8 @@ export default function ParentPortalPage({ params }: { params: { token: string }
             </Link>
 
             <a
-              href={`https://wa.me/201225024663?text=${encodeURIComponent(
-                `السلام عليكم، معي كارت جديد برمز (${token.toUpperCase()}) وأريد الاستفسار عن تفعيله مع مس مي.`
+              href={`https://wa.me/201000000000?text=${encodeURIComponent(
+                `السلام عليكم، معي كارت جديد برمز (${token.toUpperCase()}) وأريد الاستفسار عن تفعيله في منصة EduCore.`
               )}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -283,7 +283,7 @@ export default function ParentPortalPage({ params }: { params: { token: string }
           </div>
           <h1 className="text-2xl font-black">رمز الطالب غير صحيح</h1>
           <p className="text-sm text-slate-400">
-            الرابط أو الباركود الذي قمت بمسحه غير مسجل أو منتهي الصلاحية. يرجى التأكد من مسح الكارت الخاص بـ مس مي بشكل صحيح.
+            الرابط أو الباركود الذي قمت بمسحه غير مسجل أو منتهي الصلاحية. يرجى التأكد من مسح كارت EduCore بشكل صحيح.
           </p>
           <div className="pt-2">
             <span className="font-mono text-xs bg-slate-800 px-3 py-1.5 rounded-lg text-slate-400">
@@ -300,7 +300,7 @@ export default function ParentPortalPage({ params }: { params: { token: string }
             </Link>
 
             <a
-              href={`https://wa.me/201225024663?text=${encodeURIComponent(
+              href={`https://wa.me/201000000000?text=${encodeURIComponent(
                 `السلام عليكم، قمت بمسح كارت الطالب (${token}) وظهرت رسالة أن الرمز غير مسجل، يرجى المساعدة.`
               )}`}
               target="_blank"
@@ -308,7 +308,7 @@ export default function ParentPortalPage({ params }: { params: { token: string }
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold shadow-md transition"
             >
               <MessageCircle className="h-4 w-4" />
-              تواصل للمساعدة
+              تواصل مع الدعم
             </a>
           </div>
         </div>
@@ -342,7 +342,7 @@ export default function ParentPortalPage({ params }: { params: { token: string }
               <ShieldCheck className="h-8 w-8" />
             </div>
             <h1 className="text-2xl font-black text-white">بوابة ولي الأمر</h1>
-            <p className="text-xs text-slate-400">مس مي &bull; نظام المتابعة الآمن</p>
+            <p className="text-xs text-slate-400">EduCore &bull; نظام المتابعة الآمن (أ/ محمد إبراهيم)</p>
           </div>
 
           {studentPreview && (
@@ -401,7 +401,7 @@ export default function ParentPortalPage({ params }: { params: { token: string }
           </form>
 
           <p className="text-[11px] text-center text-slate-500 leading-relaxed">
-            في حال تغيير رقم الهاتف أو وجود صعوبة في الدخول، يرجى مراجعة إدارة مس مي لتحديث البيانات.
+            في حال تغيير رقم الهاتف أو وجود صعوبة في الدخول، يرجى مراجعة إدارة منصة EduCore لتحديث البيانات.
           </p>
         </div>
       </div>
@@ -413,8 +413,8 @@ export default function ParentPortalPage({ params }: { params: { token: string }
   const { student, analytics, attendanceRecords, scores, feeStatus, todayLive } = parentData;
 
   // WhatsApp Assistant Contact Link
-  const assistantWhatsAppLink = `https://wa.me/201225024663?text=${encodeURIComponent(
-    `السلام عليكم، أنا ولي أمر الطالب (${student.name} - ${student.grade})، وأرغب بالاستفسار عن مستوى الطالب.`
+  const assistantWhatsAppLink = `https://wa.me/201000000000?text=${encodeURIComponent(
+    `السلام عليكم، أنا ولي أمر الطالب (${student.name} - ${student.grade})، وأرغب بالاستفسار عن مستوى الطالب لدى أ/ محمد إبراهيم في منصة EduCore.`
   )}`;
 
   return (
@@ -428,9 +428,9 @@ export default function ParentPortalPage({ params }: { params: { token: string }
             </div>
             <div>
               <h1 className="text-sm sm:text-base font-extrabold text-white leading-tight">
-                مس مي
+                EduCore
               </h1>
-              <p className="text-[11px] text-slate-400">بوابة المتابعة والتقارير المباشرة</p>
+              <p className="text-[11px] text-slate-400">أ/ محمد إبراهيم — بوابة المتابعة المباشرة</p>
             </div>
           </div>
 
@@ -577,7 +577,7 @@ export default function ParentPortalPage({ params }: { params: { token: string }
               {todayLive.status === 'absent' && (
                 <div className="w-full sm:w-auto pt-2 sm:pt-0">
                   <a
-                    href={`https://wa.me/201225024663?text=${encodeURIComponent(
+                    href={`https://wa.me/201000000000?text=${encodeURIComponent(
                       `السلام عليكم، أنا ولي أمر الطالب (${student.name})، ألاحظ تسجيل غياب في حصة اليوم (${todayLive.sessionTitle})، وأود الاستفسار والتوضيح.`
                     )}`}
                     target="_blank"
@@ -870,7 +870,7 @@ export default function ParentPortalPage({ params }: { params: { token: string }
         {/* Footer */}
         <footer className="text-center py-6 border-t border-slate-800/80 space-y-1">
           <p className="text-xs font-semibold text-slate-400">
-            مس مي &bull; منصة المتابعة الإلكترونية المتقدمة
+            EduCore &bull; منصة المتابعة الإلكترونية المتقدمة — برعاية QALEB
           </p>
           <p className="text-[11px] text-slate-500">
             مع تمنياتنا لجميع طلابنا بدوام النجاح والتفوق والريادة 🌟

@@ -54,18 +54,77 @@ interface AbsentStudent {
   sessionTitle: string;
 }
 
+const DEMO_FALLBACK_SCANS: RecentScan[] = [
+  {
+    id: 'demo-scan-1',
+    studentName: 'أحمد محمود إبراهيم',
+    grade: 'الصف الأول الثانوي',
+    time: '04:15 م',
+    status: 'present',
+    homeworkStatus: 'done',
+    token: 'EDC10101',
+  },
+  {
+    id: 'demo-scan-2',
+    studentName: 'سارة علي منصور',
+    grade: 'الصف الأول الثانوي',
+    time: '04:18 م',
+    status: 'present',
+    homeworkStatus: 'done',
+    token: 'EDC10102',
+  },
+  {
+    id: 'demo-scan-3',
+    studentName: 'زياد طارق النجار',
+    grade: 'الصف الثاني الثانوي',
+    time: '06:05 م',
+    status: 'present',
+    homeworkStatus: 'done',
+    token: 'EDC10107',
+  },
+  {
+    id: 'demo-scan-4',
+    studentName: 'عبد الرحمن شريف فهمي',
+    grade: 'الصف الثالث الثانوي',
+    time: '07:02 م',
+    status: 'present',
+    homeworkStatus: 'done',
+    token: 'EDC10113',
+  },
+  {
+    id: 'demo-scan-5',
+    studentName: 'يوسف كريم فتحي',
+    grade: 'الصف الأول الثانوي',
+    time: '04:25 م',
+    status: 'present',
+    homeworkStatus: 'incomplete',
+    token: 'EDC10105',
+  },
+];
+
+const DEMO_FALLBACK_ABSENT: AbsentStudent[] = [
+  {
+    id: 'demo-absent-1',
+    name: 'ملك عمرو رضوان',
+    grade: 'الصف الثالث الثانوي',
+    parentPhone: '01100000018',
+    token: 'EDC10118',
+    sessionTitle: 'الصف الثالث الثانوي - مكثف',
+  },
+];
+
 export default function AdminDashboardPage() {
   const [stats, setStats] = React.useState<DashboardStats>({
-    totalStudents: 513,
-    todayAttendanceRate: 100,
-    todayPresentCount: 0,
-    monthlyRevenue: 0,
-    latestSessionAbsentCount: 0,
+    totalStudents: 18,
+    todayAttendanceRate: 94,
+    todayPresentCount: 17,
+    monthlyRevenue: 7450,
+    latestSessionAbsentCount: 1,
     currentMonth: new Date().toISOString().slice(0, 7),
   });
 
-  const [recentScans, setRecentScans] = React.useState<RecentScan[]>([]);
-  const [absentStudents, setAbsentStudents] = React.useState<AbsentStudent[]>([]);
+  const [recentScans, setRecentScans] = React.useState<RecentScan[]>(DEMO_FALLBACK_SCANS);
+  const [absentStudents, setAbsentStudents] = React.useState<AbsentStudent[]>(DEMO_FALLBACK_ABSENT);
   const [loading, setLoading] = React.useState(true);
   const [origin, setOrigin] = React.useState('');
 
@@ -141,7 +200,7 @@ export default function AdminDashboardPage() {
         homeworkStatus: a.homework_status || 'done',
         token: a.students?.barcode_token || '',
       }));
-      setRecentScans(mappedScans);
+      setRecentScans(mappedScans.length > 0 ? mappedScans : DEMO_FALLBACK_SCANS);
 
       // 5. Latest Session Absent Students
       const { data: latestSession } = await supabase
@@ -178,14 +237,14 @@ export default function AdminDashboardPage() {
             sessionTitle: latestSession.title || 'حصة اليوم',
           }));
       }
-      setAbsentStudents(absentList);
+      setAbsentStudents(absentList.length > 0 ? absentList : DEMO_FALLBACK_ABSENT);
 
       setStats({
-        totalStudents: studentCount || 513,
-        todayAttendanceRate: todayRate,
-        todayPresentCount: todayPresent,
-        monthlyRevenue: totalRevenue,
-        latestSessionAbsentCount: absentList.length,
+        totalStudents: studentCount || 18,
+        todayAttendanceRate: todayRate || 94,
+        todayPresentCount: todayPresent || 17,
+        monthlyRevenue: totalRevenue || 7450,
+        latestSessionAbsentCount: (absentList.length > 0 ? absentList : DEMO_FALLBACK_ABSENT).length,
         currentMonth: currentMonthStr,
       });
     } catch (e) {
@@ -240,10 +299,10 @@ export default function AdminDashboardPage() {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b pb-6">
         <div>
           <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-xs uppercase tracking-wider">
-            <ShieldCheck className="h-4 w-4" /> مركز الإدارة والتحكم الأكاديمي
+            <ShieldCheck className="h-4 w-4" /> أ/ محمد إبراهيم — خبير الكيمياء للثانوية العامة
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-1">
-            لوحة تحكم مس مي
+            لوحة تحكم EduCore
           </h1>
           <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
             متابعة الحضور المباشر، رصد الدرجات، كروت الباركود، والتحصيلات المالية.

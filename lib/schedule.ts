@@ -1,5 +1,5 @@
 /**
- * Schedule resolution helper for Mrs. Mai platform
+ * Schedule resolution helper for EduCore platform
  * Determines currently active group based on Egypt local time (Africa/Cairo)
  */
 

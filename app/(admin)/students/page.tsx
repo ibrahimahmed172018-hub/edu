@@ -27,6 +27,7 @@ import {
   Trash2,
   FileText,
   Check,
+  Lock,
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -82,21 +83,15 @@ interface PaymentInfo {
 
 const AVAILABLE_GRADES = [
   'الكل',
-  'الرابع الابتدائي',
-  'الخامس الابتدائي',
-  'السادس الابتدائي',
-  'الاول الاعدادي',
-  'الثانى الاعدادي',
-  'الثالث الاعدادي',
+  'الصف الأول الثانوي',
+  'الصف الثاني الثانوي',
+  'الصف الثالث الثانوي',
 ];
 
 const GRADE_CHOICES = [
-  'الرابع الابتدائي',
-  'الخامس الابتدائي',
-  'السادس الابتدائي',
-  'الاول الاعدادي',
-  'الثانى الاعدادي',
-  'الثالث الاعدادي',
+  'الصف الأول الثانوي',
+  'الصف الثاني الثانوي',
+  'الصف الثالث الثانوي',
 ];
 
 const MONTH_OPTIONS = [
@@ -139,7 +134,7 @@ export default function StudentsPage() {
   const [isSavingStudent, setIsSavingStudent] = React.useState(false);
   const [studentForm, setStudentForm] = React.useState({
     name: '',
-    grade: 'الرابع الابتدائي',
+    grade: 'الصف الأول الثانوي',
     groupId: '',
     studentPhone: '',
     parentPhone: '',
@@ -153,7 +148,7 @@ export default function StudentsPage() {
   // CSV Import Modal State
   const [showImportModal, setShowImportModal] = React.useState(false);
   const [importLoading, setImportLoading] = React.useState(false);
-  const [importWipeOption, setImportWipeOption] = React.useState(true);
+  const [importWipeOption, setImportWipeOption] = React.useState(false);
   const [importFile, setImportFile] = React.useState<File | null>(null);
   const [importResult, setImportResult] = React.useState<any | null>(null);
   const [importError, setImportError] = React.useState<string | null>(null);
@@ -550,7 +545,7 @@ export default function StudentsPage() {
       }));
 
       const filterTag = gradeFilter !== 'الكل' ? `_${gradeFilter.replace(/\s+/g, '_')}` : '';
-      exportStudentsToCsv(exportItems, `طلاب_مس_مي${filterTag}.csv`);
+      exportStudentsToCsv(exportItems, `طلاب_EduCore${filterTag}.csv`);
     } catch (err) {
       console.error('Failed to export CSV:', err);
     } finally {
@@ -558,33 +553,10 @@ export default function StudentsPage() {
     }
   };
 
-  // 11. Wipe All Students & Codes
+  // 11. Wipe All Students & Codes (Disabled in Demo Mode)
   const handleWipeAllStudentsAndCodes = async () => {
-    const confirmed = window.confirm(
-      'تحذير شديد الأهمية:\nهل أنت متأكد من تصفير قاعدة البيانات ومسح كافة بيانات الطلاب والأكواد بالكامل؟\n\n- سيتم مسح جميع الطلاب\n- سيتم مسح جميع كروت الباركود والأكواد\n- سيتم مسح سجلات الحضور وسجلات الدرجات والاشتراكات\n\nهذا الإجراء لا يمكن التراجع عنه.'
-    );
-    if (!confirmed) return;
-
-    setIsWiping(true);
-    try {
-      const res = await fetch('/api/students?wipeAll=true', {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-      if (data.success) {
-        alert(data.message || 'تم تصفير كافة بيانات الطلاب والأكواد بالكامل بنجاح!');
-        setStudents([]);
-        setPaymentsMap(new Map());
-        await fetchStudents();
-      } else {
-        alert(data.error || 'فشل في مسح البيانات');
-      }
-    } catch (e: any) {
-      console.error('Wipe error:', e);
-      alert('حدث خطأ أثناء محاولة تصفير البيانات');
-    } finally {
-      setIsWiping(false);
-    }
+    alert('هذه نسخة تجريبية حية للمعاينة فقط. الإجراءات التدميرية معطلة لحماية الديمو.');
+    return;
   };
 
   return (
@@ -637,17 +609,16 @@ export default function StudentsPage() {
             تصدير CSV ({filteredStudents.length})
           </Button>
 
-          {/* Wipe DB & Codes Button */}
+          {/* Wipe DB & Codes Button (Protected Sandbox) */}
           {students.length > 0 && (
             <Button
               variant="outline"
               onClick={handleWipeAllStudentsAndCodes}
-              disabled={isWiping}
-              title="تصفير قاعدة البيانات ومسح جميع الطلاب والأكواد"
-              className="flex items-center gap-2 border-rose-900/60 bg-rose-950/30 text-rose-300 hover:text-white hover:bg-rose-900/70 h-11 rounded-xl text-xs active:scale-95 transition-all"
+              title="تصفير قاعدة البيانات ومسح جميع الطلاب والأكواد (معطل في الديمو)"
+              className="flex items-center gap-2 border-slate-800 bg-slate-900/60 text-slate-400 hover:text-amber-300 hover:bg-slate-850 h-11 rounded-xl text-xs active:scale-95 transition-all"
             >
-              <Trash2 className={`h-4 w-4 text-rose-400 ${isWiping ? 'animate-spin' : ''}`} />
-              <span>{isWiping ? 'جاري التصفير...' : 'تصفير الطلاب والأكواد 🗑️'}</span>
+              <Lock className="h-3.5 w-3.5 text-amber-400" />
+              <span>تصفير الطلاب والأكواد 🗑️ (معطل)</span>
             </Button>
           )}
 
@@ -935,7 +906,7 @@ export default function StudentsPage() {
                                 ? '2' + student.parent_phone.replace(/\D/g, '')
                                 : '20' + student.parent_phone.replace(/\D/g, '')
                             }?text=${encodeURIComponent(
-                              `السلام عليكم ورحمة الله، رابط تقرير ومتابعة الطالب (${student.name}) لدى مس مي:\n${
+                              `السلام عليكم ورحمة الله، رابط تقرير ومتابعة الطالب (${student.name}) في منصة EduCore (أ/ محمد إبراهيم):\n${
                                 typeof window !== 'undefined' ? window.location.origin : ''
                               }/p/${student.barcode_token}`
                             )}`}
@@ -1286,25 +1257,22 @@ export default function StudentsPage() {
             </div>
 
             {/* Wipe Option Checkbox */}
-            <div className={`p-4 rounded-2xl border transition-all ${
-              importWipeOption
-                ? 'bg-rose-950/20 border-rose-900/40 text-rose-200'
-                : 'bg-slate-950 border-slate-800 text-slate-300'
-            }`}>
-              <label className="flex items-start gap-3 cursor-pointer select-none">
+            <div className="p-4 rounded-2xl border transition-all bg-slate-950/80 border-slate-800 text-slate-400">
+              <label className="flex items-start gap-3 cursor-not-allowed select-none opacity-80" onClick={() => alert('هذه نسخة تجريبية حية للمعاينة فقط. الإجراءات التدميرية معطلة لحماية الديمو.')}>
                 <input
                   type="checkbox"
-                  checked={importWipeOption}
-                  onChange={(e) => setImportWipeOption(e.target.checked)}
-                  className="mt-1 h-4 w-4 rounded border-slate-700 bg-slate-900 text-rose-500 focus:ring-rose-500"
+                  checked={false}
+                  readOnly
+                  disabled
+                  className="mt-1 h-4 w-4 rounded border-slate-700 bg-slate-900 text-slate-600 cursor-not-allowed"
                 />
                 <div className="space-y-1">
-                  <div className="font-bold text-xs sm:text-sm flex items-center gap-1.5 text-rose-400">
-                    <Trash2 className="h-4 w-4" />
-                    <span>مسح جميع البيانات القديمة قبل الاستيراد (قاعدة بيانات نظيفة)</span>
+                  <div className="font-bold text-xs sm:text-sm flex items-center gap-1.5 text-slate-300">
+                    <Lock className="h-4 w-4 text-amber-400" />
+                    <span>مسح جميع البيانات القديمة قبل الاستيراد (معطل لحماية الديمو 🔒)</span>
                   </div>
-                  <p className="text-[11px] text-slate-400 leading-relaxed">
-                    عند التفعيل، سيتم حذف الطلاب الحاليين وسجلات الحضور والغياب والدرجات القديمة للبدء من جديد تماماً بمحتوى الملف المرفوع.
+                  <p className="text-[11px] text-slate-500 leading-relaxed">
+                    تم تعطيل خيار حذف وتصفير قاعدة البيانات لحماية النسخة التجريبية الحية.
                   </p>
                 </div>
               </label>

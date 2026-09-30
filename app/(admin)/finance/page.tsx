@@ -301,7 +301,7 @@ export default function FinancePage() {
     ];
 
     const csv = generateCsvString(filteredLedger, columns);
-    downloadCsv(`تقرير_حسابات_مس_مي_${selectedMonth}.csv`, csv);
+    downloadCsv(`تقرير_حسابات_EduCore_${selectedMonth}.csv`, csv);
   };
 
   return (

@@ -19,8 +19,8 @@ import { Badge } from '@/components/ui/badge';
 import { createClient } from '@/lib/supabase/client';
 
 export default function HomePage() {
-  const [studentCount, setStudentCount] = React.useState<number>(513);
-  const [sampleToken, setSampleToken] = React.useState<string>('CB7D4278');
+  const [studentCount, setStudentCount] = React.useState<number>(18);
+  const [sampleToken, setSampleToken] = React.useState<string>('EDC10101');
 
   React.useEffect(() => {
     async function fetchStats() {
@@ -133,10 +133,10 @@ export default function HomePage() {
             </div>
             <div>
               <span className="font-black text-base sm:text-lg text-white block leading-tight">
-                مس مي
+                EduCore
               </span>
               <span className="text-[11px] text-emerald-400 font-bold block leading-none">
-                المنصة التعليمية المتكاملة
+                نظام إدارة الحصص والسناتر التعليمية
               </span>
             </div>
           </div>
@@ -144,7 +144,7 @@ export default function HomePage() {
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/50 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              النظام متصل بقاعدة البيانات
+              نسخة المعاينة الحية (Live Demo)
             </div>
             <Link href="/scan">
               <Button
@@ -174,13 +174,13 @@ export default function HomePage() {
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-sm">
             <Sparkles className="h-3.5 w-3.5" />
-            نظام إدارة المجموعات والطلاب الاحترافي
+            أ/ محمد إبراهيم — خبير الكيمياء للثانوية العامة
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
-            منظومة مس مي <span className="text-emerald-400">التعليمية الذكية</span>
+            منظومة EduCore <span className="text-emerald-400">التعليمية الذكية</span>
           </h1>
           <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            منصة متكاملة لتسجيل الحضور الفوري بالباركود، رصد الدرجات وإرسال تقارير واتساب التلقائية، طباعة كروت الهوية، وبوابة خاصة لأولياء الأمور.
+            المنصة السحابية المتكاملة لإدارة الحصص والسناتر، تسجيل الحضور الفوري بالباركود، رصد الدرجات وإرسال تقارير واتساب التلقائية، طباعة كروت الهوية، وبوابة خاصة لأولياء الأمور.
           </p>
 
           {/* Quick KPI stats preview */}
@@ -190,8 +190,8 @@ export default function HomePage() {
               <div className="text-xs text-slate-400 font-medium mt-0.5">طالب مسجل</div>
             </div>
             <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
-              <div className="text-xl sm:text-2xl font-black text-emerald-400">6</div>
-              <div className="text-xs text-slate-400 font-medium mt-0.5">مراحل دراسية</div>
+              <div className="text-xl sm:text-2xl font-black text-emerald-400">3</div>
+              <div className="text-xs text-slate-400 font-medium mt-0.5">مراحل ثانوية</div>
             </div>
             <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
               <div className="text-xl sm:text-2xl font-black text-cyan-400">&lt; 0.5 ث</div>
@@ -199,7 +199,7 @@ export default function HomePage() {
             </div>
             <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
               <div className="text-xl sm:text-2xl font-black text-purple-400">100%</div>
-              <div className="text-xs text-slate-400 font-medium mt-0.5">بيانات حقيقية</div>
+              <div className="text-xs text-slate-400 font-medium mt-0.5">معاينة تفاعلية</div>
             </div>
           </div>
         </div>
@@ -288,11 +288,15 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="border-t border-slate-800/80 bg-slate-900/50 py-6 text-center text-xs text-slate-500 mt-auto">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p>© 2026 مس مي — جميع الحقوق محفوظة</p>
+          <p>© 2026 EduCore | نظام إدارة الحصص والسناتر التعليمية — برعاية QALEB</p>
           <div className="flex items-center gap-4 text-[11px] text-slate-400">
-            <span>قاعدة بيانات حية: {studentCount} طالب</span>
+            <span>قاعدة بيانات تجريبية: {studentCount} طالب</span>
             <span>•</span>
-            <span className="text-emerald-400 font-semibold">Supabase Connected</span>
+            <span className="text-emerald-400 font-semibold">Live Demo Sandbox</span>
+            <span>•</span>
+            <a href="https://wa.me/201000000000" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-300">
+              الدعم: +20 100 000 0000
+            </a>
           </div>
         </div>
       </footer>

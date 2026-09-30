@@ -83,7 +83,7 @@ export function exportStudentsToCsv(students: StudentExportItem[], customFilenam
 
   const csv = generateCsvString(students, columns);
   const timestamp = new Date().toISOString().split('T')[0];
-  const filename = customFilename || `طلاب_مس_مي_${timestamp}.csv`;
+  const filename = customFilename || `طلاب_EduCore_${timestamp}.csv`;
 
   downloadCsv(filename, csv);
 }

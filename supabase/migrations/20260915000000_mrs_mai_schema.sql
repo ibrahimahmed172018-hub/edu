@@ -1,4 +1,4 @@
--- Mrs. Mai Educational Platform Schema Migration
+-- EduCore Educational Platform Schema Migration
 
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 

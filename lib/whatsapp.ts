@@ -1,5 +1,5 @@
 /**
- * WhatsApp 1-Click Notifications Engine for Mrs. Mai Educational Platform
+ * WhatsApp 1-Click Notifications Engine for EduCore Educational Platform
  * Generates direct https://wa.me/20... URLs with URL-encoded Arabic messages
  */
 
@@ -12,17 +12,17 @@ export function formatPhoneForWhatsApp(rawPhone: string | null | undefined): str
   const digits = String(rawPhone).replace(/\D/g, '');
   if (!digits) return null;
 
-  // If already starts with 20 and is 12 digits: e.g. 201225024663
+  // If already starts with 20 and is 12 digits: e.g. 201000000000
   if (digits.startsWith('20') && digits.length === 12) {
     return digits;
   }
 
-  // If starts with 01 and is 11 digits: e.g. 01225024663 -> 201225024663
+  // If starts with 01 and is 11 digits: e.g. 01000000000 -> 201000000000
   if (digits.startsWith('0') && digits.length === 11) {
     return '2' + digits;
   }
 
-  // If starts with 1 and is 10 digits: e.g. 1225024663 -> 201225024663
+  // If starts with 1 and is 10 digits: e.g. 1000000000 -> 201000000000
   if (digits.startsWith('1') && digits.length === 10) {
     return '20' + digits;
   }
@@ -39,7 +39,7 @@ export function formatPhoneForWhatsApp(rawPhone: string | null | undefined): str
  * Resolves base URL for parent portal link
  */
 function resolvePortalUrl(token: string, origin?: string): string {
-  const base = origin || (typeof window !== 'undefined' ? window.location.origin : 'https://mrs-mai.edu');
+  const base = origin || (typeof window !== 'undefined' ? window.location.origin : 'https://demo.qaleb.site');
   return `${base}/p/${token}`;
 }
 
@@ -56,7 +56,7 @@ export function getAbsenceWhatsAppUrl(
   if (!formattedPhone) return null;
 
   const portalUrl = resolvePortalUrl(token, origin);
-  const text = `السلام عليكم يا فندم،\nنود إبلاغكم بغياب الطالب (${studentName}) عن حصة اليوم لدى مس مي.\nيمكنكم متابعة سجل الحضور والواجبات عبر الرابط:\n${portalUrl}`;
+  const text = `السلام عليكم يا فندم،\nنود إبلاغكم بغياب الطالب (${studentName}) عن حصة اليوم في منصة EduCore (أ/ محمد إبراهيم).\nيمكنكم متابعة سجل الحضور والواجبات عبر الرابط:\n${portalUrl}`;
 
   return `https://wa.me/${formattedPhone}?text=${encodeURIComponent(text)}`;
 }
@@ -86,7 +86,7 @@ export function getScoreWhatsAppUrl(
     evaluation = 'جيد جداً 👍';
   }
 
-  const text = `مرحباً بحضرتك،\nنتيجة امتحان (${examTitle}) للطالب (${studentName}) لدى مس مي هي:\nالدرجة: ${score} من ${maxScore} (${percentage}% - ${evaluation}).\nلمشاهدة التقرير الأكاديمي الكامل وملاحظات المعلم:\n${portalUrl}`;
+  const text = `مرحباً بحضرتك،\nنتيجة امتحان (${examTitle}) للطالب (${studentName}) في منصة EduCore (أ/ محمد إبراهيم) هي:\nالدرجة: ${score} من ${maxScore} (${percentage}% - ${evaluation}).\nلمشاهدة التقرير الأكاديمي الكامل وملاحظات المعلم:\n${portalUrl}`;
 
   return `https://wa.me/${formattedPhone}?text=${encodeURIComponent(text)}`;
 }
@@ -105,7 +105,7 @@ export function getFeeReminderWhatsAppUrl(
   if (!formattedPhone) return null;
 
   const portalUrl = resolvePortalUrl(token, origin);
-  const text = `السلام عليكم ورحمة الله،\nتذكير لطيف بمصاريف شهر (${monthName}) للطالب (${studentName}) لدى مس مي.\nللاطلاع على كشف الحساب والتقرير الأكاديمي:\n${portalUrl}\nللاستفسار يرجى التواصل معنا.`;
+  const text = `السلام عليكم ورحمة الله،\nتذكير لطيف بمصاريف شهر (${monthName}) للطالب (${studentName}) في منصة EduCore (أ/ محمد إبراهيم).\nللاطلاع على كشف الحساب والتقرير الأكاديمي:\n${portalUrl}\nللاستفسار والدعم: +20 100 000 0000`;
 
   return `https://wa.me/${formattedPhone}?text=${encodeURIComponent(text)}`;
 }

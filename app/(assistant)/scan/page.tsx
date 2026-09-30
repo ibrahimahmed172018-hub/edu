@@ -125,8 +125,16 @@ export default function ScanPage() {
     if (isLoggingOut) return;
     setIsLoggingOut(true);
     try {
-      const supabase = createClient();
-      await supabase.auth.signOut();
+      await fetch('/api/auth/demo-logout', { method: 'POST' }).catch(() => {});
+      if (typeof document !== 'undefined') {
+        document.cookie = 'educore_demo_session=; path=/; max-age=0;';
+      }
+      try {
+        const supabase = createClient();
+        await supabase.auth.signOut();
+      } catch {
+        // Ignore supabase signout error
+      }
       router.refresh();
       router.push('/login');
     } catch (err) {
@@ -780,7 +788,7 @@ export default function ScanPage() {
                   نظام تسجيل الحضور الذكي
                 </h1>
               </div>
-              <p className="text-[11px] text-slate-400">مس مي — إدارة الجلسات الفورية</p>
+              <p className="text-[11px] text-slate-400">EduCore — إدارة الجلسات الفورية (أ/ محمد إبراهيم)</p>
             </div>
           </div>
 

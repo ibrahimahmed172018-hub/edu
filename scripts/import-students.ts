@@ -1,7 +1,7 @@
 #!/usr/bin/env tsx
 
 /**
- * Real Data CSV/JSON Student Importer for Mrs. Mai Educational Platform
+ * Real Data CSV/JSON Student Importer for EduCore Platform
  * Usage:
  *   npm run import-students
  *   or: npx tsx scripts/import-students.ts [path-to-file.csv] [--wipe]
@@ -168,7 +168,7 @@ async function importStudents() {
     process.exit(1);
   }
 
-  console.log(`[Mrs. Mai] Reading students from: ${filePath}`);
+  console.log(`[EduCore] Reading students from: ${filePath}`);
   const content = fs.readFileSync(filePath, 'utf8');
   const rows = parseCSV(content);
 
@@ -177,17 +177,17 @@ async function importStudents() {
     process.exit(1);
   }
 
-  console.log(`[Mrs. Mai] Parsed ${rows.length} rows from CSV.`);
+  console.log(`[EduCore] Parsed ${rows.length} rows from CSV.`);
 
   // Optional wipe
   if (wipeArg) {
-    console.log('[Mrs. Mai] Wiping existing student records before import...');
+    console.log('[EduCore] Wiping existing student records before import...');
     await supabase.from('attendance').delete().neq('id', '00000000-0000-0000-0000-000000000000');
     await supabase.from('student_scores').delete().neq('id', '00000000-0000-0000-0000-000000000000');
     await supabase.from('fee_payments').delete().neq('id', '00000000-0000-0000-0000-000000000000');
     await supabase.from('card_tokens').delete().neq('id', '00000000-0000-0000-0000-000000000000');
     await supabase.from('students').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-    console.log('[Mrs. Mai] Wipe complete.');
+    console.log('[EduCore] Wipe complete.');
   }
 
   // Fetch official study groups
@@ -195,7 +195,7 @@ async function importStudents() {
     .from('groups')
     .select('id, name, grade, grade_level');
 
-  console.log(`[Mrs. Mai] Confirmed ${officialGroups?.length || 0} official study groups in database.`);
+  console.log(`[EduCore] Confirmed ${officialGroups?.length || 0} official study groups in database.`);
 
   // Fetch existing students to avoid duplicate legacy_ids or duplicate tokens
   const { data: existingStudents } = await supabase
@@ -274,7 +274,7 @@ async function importStudents() {
     studentPayloads.push(payload);
   }
 
-  console.log(`[Mrs. Mai] Prepared ${studentPayloads.length} student payloads.`);
+  console.log(`[EduCore] Prepared ${studentPayloads.length} student payloads.`);
 
   // Batch insertion in chunks of 100
   const CHUNK_SIZE = 100;
@@ -316,7 +316,7 @@ async function importStudents() {
 
   console.log(`
 ======================================================
-Mrs. Mai - CSV Import Summary:
+EduCore - CSV Import Summary:
 ======================================================
   Source File:          ${filePath}
   Records Processed:    ${studentPayloads.length}

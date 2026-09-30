@@ -239,17 +239,13 @@ export async function DELETE(request: NextRequest) {
     const adminClient = createAdminClient();
 
     if (wipeAll) {
-      // Clean up all related tables and cards to ensure zero codes remain
-      await adminClient.from('attendance').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-      await adminClient.from('student_scores').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-      await adminClient.from('fee_payments').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-      await adminClient.from('card_tokens').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-      await adminClient.from('students').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-
-      return NextResponse.json({
-        success: true,
-        message: 'تم مسح وتصفير كافة بيانات الطلاب والأكواد بالكامل من قاعدة البيانات',
-      });
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'هذه نسخة تجريبية حية للمعاينة فقط. الإجراءات التدميرية معطلة لحماية الديمو.',
+        },
+        { status: 403 }
+      );
     }
 
     if (!studentId) {

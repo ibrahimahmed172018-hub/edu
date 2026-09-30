@@ -22,7 +22,7 @@ export interface StudentCardProps {
 
 export function StudentCard({ student, origin, className }: StudentCardProps) {
   // Compute public parent portal URL
-  const baseUrl = origin || (typeof window !== 'undefined' ? window.location.origin : 'https://mrs-mai.edu');
+  const baseUrl = origin || (typeof window !== 'undefined' ? window.location.origin : 'https://demo.qaleb.site');
   const portalUrl = `${baseUrl}/p/${student.barcode_token}`;
 
   return (
@@ -48,10 +48,10 @@ export function StudentCard({ student, origin, className }: StudentCardProps) {
           </div>
           <div>
             <h3 className="text-[12px] font-black text-emerald-800 print:text-black tracking-tight leading-none">
-              مس مي
+              EduCore
             </h3>
             <p className="text-[8px] text-zinc-500 print:text-black font-medium leading-tight">
-              كارت المتابعة والباركود الذكي
+              أ/ محمد إبراهيم — كارت الباركود الذكي
             </p>
           </div>
         </div>

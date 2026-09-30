@@ -1,5 +1,5 @@
 /**
- * Standardization Formatters for Mrs. Mai Platform
+ * Standardization Formatters for EduCore Platform
  * 100% Arabic & Egyptian Pound (EGP / ج.م)
  */
 

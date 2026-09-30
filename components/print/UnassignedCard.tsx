@@ -16,7 +16,7 @@ export interface UnassignedCardProps {
 }
 
 export function UnassignedCard({ card, origin, className }: UnassignedCardProps) {
-  const baseUrl = origin || (typeof window !== 'undefined' ? window.location.origin : 'https://mrs-mai.edu');
+  const baseUrl = origin || (typeof window !== 'undefined' ? window.location.origin : 'https://demo.qaleb.site');
   const portalUrl = `${baseUrl}/p/${card.barcode_token}`;
 
   return (
@@ -42,10 +42,10 @@ export function UnassignedCard({ card, origin, className }: UnassignedCardProps)
           </div>
           <div>
             <h3 className="text-[12px] font-black text-zinc-900 print:text-black tracking-tight leading-none">
-              مس مي
+              EduCore
             </h3>
             <p className="text-[8px] text-zinc-500 print:text-black font-medium leading-tight">
-              كارت الطالب الذكي — جاهز للتفعيل
+              كارت الطالب الذكي — أ/ محمد إبراهيم
             </p>
           </div>
         </div>
@@ -101,7 +101,7 @@ export function UnassignedCard({ card, origin, className }: UnassignedCardProps)
         </div>
         <div className="flex items-center gap-0.5 font-medium">
           <ShieldCheck className="h-2.5 w-2.5 text-amber-600 print:text-black" />
-          <span>مس مي • معتمد</span>
+          <span>EduCore • معتمد</span>
         </div>
       </div>
     </div>

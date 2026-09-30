@@ -135,15 +135,9 @@ export async function POST(request: NextRequest) {
 
     const adminClient = createAdminClient();
 
-    // 1. Wipe existing records if requested
+    // 1. Wipe existing records (Disabled in Demo Mode)
     if (wipeBeforeImport) {
-      // Order of deletion to respect foreign keys:
-      // attendance -> student_scores -> fee_payments -> card_tokens -> students
-      await adminClient.from('attendance').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-      await adminClient.from('student_scores').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-      await adminClient.from('fee_payments').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-      await adminClient.from('card_tokens').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-      await adminClient.from('students').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      console.log('[Demo Sandbox] Wiping database is disabled in live demo.');
     }
 
     // 2. Fetch Groups based on grades (use seeded official study groups)

@@ -30,11 +30,19 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  // Query authenticated user from Supabase Auth
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // Check demo session cookie for zero-friction prospect preview
+  const isDemoAuthenticated = request.cookies.get('educore_demo_session')?.value === 'true';
 
+  // Query authenticated user from Supabase Auth
+  let user = null;
+  try {
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  } catch {
+    // Ignore error
+  }
+
+  const isAuthenticated = !!user || isDemoAuthenticated;
   const pathname = request.nextUrl.pathname;
 
   // Public routes that MUST remain accessible without login
@@ -42,11 +50,12 @@ export async function middleware(request: NextRequest) {
     pathname === '/' ||
     pathname === '/login' ||
     pathname.startsWith('/p/') ||
-    pathname.startsWith('/api/parent');
+    pathname.startsWith('/api/parent') ||
+    pathname.startsWith('/api/auth');
 
   if (isPublic) {
     // If user is already authenticated and visits /login, redirect to /dashboard
-    if (user && pathname === '/login') {
+    if (isAuthenticated && pathname === '/login') {
       const redirectTo = request.nextUrl.searchParams.get('redirectTo') || '/dashboard';
       const destination = redirectTo.startsWith('/') ? redirectTo : '/dashboard';
       const url = new URL(destination, request.url);
@@ -56,7 +65,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // If unauthenticated, guard private routes
-  if (!user) {
+  if (!isAuthenticated) {
     // Return 401 JSON for internal administrative APIs
     if (pathname.startsWith('/api/')) {
       return NextResponse.json(

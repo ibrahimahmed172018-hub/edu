@@ -2,8 +2,8 @@ import { createAdminClient } from '../lib/supabase/admin';
 
 async function main() {
   const args = process.argv.slice(2);
-  let email = 'ibrahimahmed172018@gmail.com';
-  let password = '';
+  let email = 'demo@qaleb.site';
+  let password = 'demo123456';
 
   for (const arg of args) {
     if (arg.startsWith('--email=')) {
@@ -14,7 +14,7 @@ async function main() {
   }
 
   if (!password) {
-    console.error('❌ Error: Password is required. Usage: npx tsx --env-file=.env.local scripts/create-admin.ts --email=admin@example.com --password=YourSecretPassword123');
+    console.error('❌ Error: Password is required. Usage: npx tsx --env-file=.env.local scripts/create-admin.ts --email=demo@qaleb.site --password=demo123456');
     process.exit(1);
   }
 
